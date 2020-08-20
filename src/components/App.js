@@ -17,6 +17,7 @@ constructor() {
   }
   this.deleteAppoinmrnt=this.deleteAppoinmrnt.bind(this);
   this.toggleForm=this.toggleForm.bind(this);
+  this.AddAppoinment=this.AddAppoinment.bind(this);
 }
 
 componentDidMount(){
@@ -46,6 +47,12 @@ toggleForm(){
   this.setState({formDisplay:!this.state.formDisplay})
 }
 
+AddAppoinment(apt){
+  let tempApts=this.state.myAppoinments;
+  apt.aptID=this.state.lastIndex;
+  tempApts.unshift(apt);
+  this.setState({myAppoinments:tempApts, lastIndex:this.state.lastIndex+1});
+}
 
 render()
 {
@@ -55,7 +62,7 @@ render()
       <div className="row">
         <div className="col-md-12 bg-white">
           <div className="container">
-            <AddAppoinment formDisplay={this.state.formDisplay} toggleForm={this.toggleForm}></AddAppoinment>
+            <AddAppoinment formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} AddAppoinment={this.AddAppoinment} ></AddAppoinment>
             <SearchAppointments></SearchAppointments>
             <ListAppointments appointments={this.state.myAppoinments}
               deleteAppoinmrnt={this.deleteAppoinmrnt}
